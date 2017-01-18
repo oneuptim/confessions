@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Dashboard</title>
+    <style media="screen">
+    h1 {
+      font-family: arial;
+      font-weight: 100;
+    }
+    .wrapper {
+      width: 960px; margin: 0 auto;
+    }
+      #submitBtn  {
+        padding: 15px; background-color: #4CAF50;border-radius: 4px; color: white; width: 400px; font-size: 15px; border: white; cursor: pointer; align-self: center; display: inline-block; font-weight: 100; float: right; margin-right: -42px;
+      }
+      #resetBtn {
+        padding: 15px; background-color: #009688; border-radius: 4px; color: white; width: 400px; font-size: 15px; border: white; cursor: pointer; align-self: center; display: inline-block; font-weight: 100;
+      }
+      input {
+        padding: 10px;
+        width: 102%;
+        margin-bottom: 20px;
+        font-size: 18px;
+      }
+      textarea {
+        padding: 20px;
+        width: 100%;
+        margin-bottom: 20px;
+        font-size: 18px;
+      }
+      .confessions {
+        font-family: arial;
+        margin-top: 30px;
+        display: inline-block;
+        font-size: 14px;
+        color: #5b5c5d;
+      }
+      hr {
+        border: solid 0.5px #eee;
+        margin: 40px 0;
+      }
+
+      .comment, input {
+        padding: 10px;
+        width: 60%;
+        margin-bottom: 20px;
+        font-size: 18px;
+      }
+      textarea {
+        padding: 20px;
+        width: 100%;
+        margin-bottom: 20px;
+        font-size: 18px;
+      }
+
+      .comments {
+        background-color: #f5f3f3;
+        padding: 10px;
+        margin: 10px 0;
+      }
+
+
+    </style>
+  </head>
+  <body>
+    <div class="wrapper">
+    <h1>Confession Board</h1>
+    <form class="" action="/post" method="post">
+      <input type="text" name="name" value="" placeholder="Enter your name"><br>
+      <textarea rows="4" cols="50"  name="text" placeholder="Enter your post here"></textarea><br>
+      <input type="submit" name="" value="Post Confession" id="submitBtn">
+    </form>
+    <div class="confessions">
+      <% for ( var x of confessions ) { %>
+        <p><%= x.text %></p>
+        <a href="/post/<%= x.id %>">Checking out Link</a>
+        <p>Posted by <strong><%= x.name %></strong> on: <%= x.createdAt %></p>
+        <div class="comments">
+          <% for (var i of x.comments ){ %>
+            <p>Comment: <%= i.text %></p>
+            <p>Posted by: <%= i.name %></p>
+            <hr>
+            <% } %>
+        </div>
+
+        <form class="" action="/post/<%= x.id %>" method="post">
+          <input class="comment" type="text" name="name" value="" placeholder="Enter your name"><br>
+          <textarea class="comment" rows="4" cols="50"  name="text" placeholder="Enter your post here"></textarea><br>
+          <input class="comment" type="submit" name="" value="Post Comment" id="resetBtn">
+        </form>
+
+        <hr>
+        <% } %>
+    </div>
+  </div>
+  </body>
+</html>
